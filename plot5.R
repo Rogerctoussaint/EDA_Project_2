@@ -1,5 +1,5 @@
 
-
+require(ggplot2)
 file <- "EPA_EMISSIONS.zip"
 
 if(!file.exists(file))
