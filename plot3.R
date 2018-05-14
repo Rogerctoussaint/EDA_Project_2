@@ -18,9 +18,10 @@ balt_emissions <- aggregate(Emissions ~ year + type, data = baltimore, FUN = sum
 
 g <- ggplot(balt_emissions, aes(year, Emissions, col = type))
 g <- g + geom_line() + 
-         xlab("Year") + 
-         ylab(expression('PM'[2.5]*' (tons)')) + 
-         ggtitle(expression('Baltimore City, MD PM'[2.5]*' Emissions by Type'))
+    xlab("Year") + 
+    ylab(expression('PM'[2.5]*' (tons)')) + 
+    ggtitle(expression('Baltimore City, MD PM'[2.5]*' Emissions by Type')) +
+    theme(plot.title = element_text(hjust = 0.5))
 
 png("plot3.png", width = 480, height = 480)
 print(g)
