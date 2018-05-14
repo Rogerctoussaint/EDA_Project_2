@@ -13,7 +13,7 @@ if(!exists("SCC"))
 
 
 png("plot1.png", width = 480, height = 480)
-total_emissions <- aggregate(Emissions ~ year, data = NEI, FUN = sum)
-barplot(height = total_emissions$Emissions, names.arg = total_emissions$year, xlab = "Year", ylab = expression('PM'[2.5]*' (tons)'), 
+total_emissions <- aggregate(Emissions/1000 ~ year, data = NEI, FUN = sum)
+barplot(height = total_emissions$Emissions, names.arg = total_emissions$year, xlab = "Year", ylab = expression('PM'[2.5]*' (kilotons)'), 
         main = expression('Total PM'[2.5]*' Emissions, All Sources'))
 dev.off()

@@ -1,4 +1,7 @@
 
+require(ggplot2)
+require(dplyr)
+
 file <- "EPA_EMISSIONS.zip"
 
 if(!file.exists(file))
@@ -12,5 +15,14 @@ if(!exists("NEI"))
 if(!exists("SCC"))
     SCC <- readRDS("Source_Classification_Code.rds")
 
-coal_emiss <- subset(NEI, type = 'coal')
-coal_emiss <- aggregate(Emissions ~ year, )
+
+coal_emiss_rows <- grep("Fuel Comb.*Coal", SCC$EI.Sector)
+coal_emiss <- SCC[coal_emiss_rows,]
+coal_data <- merge(NEI, coal_emiss, by = "SCC")
+
+g <- ggplot(coal_data, aes(x = factor(year), y = Emissions/1000, label = round(Emissions/1000, 2), fill = year))
+g + geom_col() +
+    xlab("Year") + 
+    ylab(expression('PM'[2.5]*' (kilotons)')) +
+    ggtitle("Countrywide Emissions from Coal Combustion-Related Sources, 1999 - 2008")
+
