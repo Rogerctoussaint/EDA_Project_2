@@ -20,9 +20,12 @@ coal_emiss_rows <- grep("Fuel Comb.*Coal", SCC$EI.Sector)
 coal_emiss <- SCC[coal_emiss_rows,]
 coal_data <- merge(NEI, coal_emiss, by = "SCC")
 
+png("plot4.png", width = 480, height = 480)
 g <- ggplot(coal_data, aes(x = factor(year), y = Emissions/1000, label = round(Emissions/1000, 2), fill = year))
 g + geom_col() +
     xlab("Year") + 
     ylab(expression('PM'[2.5]*' (kilotons)')) +
-    ggtitle("Countrywide Emissions from Coal Combustion-Related Sources, 1999 - 2008")
+    ggtitle("Countrywide Emissions from Coal Combustion-Related Sources") + 
+    theme(plot.title = element_text(hjust = 0.5))
+dev.off()
 
